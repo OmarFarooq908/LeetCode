@@ -18,28 +18,22 @@ class Solution {
 					});
 
 			// Getting the size of the minimum string
-			int min = min_string.size();
-
+			int min_length = min_string.size();
+			
 			// Initializing the longest common prefix string
 			string res = "";
 
-			// Flag for consecutive occurance of letter
-			bool consec = true;
-
 			// Iterating through the vector
-			for (int i = 0; i < min; i++){
-				for (int j = 0; j < strs.size(); j++){
-					if (j ==0 || (j > 0 && strs[j][i] == strs[j-1][i]) && j != strs.size() - 1){
-						consec = true;
+			for (int i = 0; i < min_length; i++){
+				for (int j = 1; j < strs.size(); j++){
+					if (strs[j][i] == strs[j-1][i] && j != strs.size() - 1){
 						continue;
 					}
-					if (consec && strs[j][i] == strs[j-1][i] && j == strs.size() - 1) {
+					if (strs[j][i] == strs[j-1][i] && j == strs.size() - 1) {
 						res += strs[j][i];
-						consec = false;
 					}
-					else {
-						consec = false;
-						i = min;
+					if (strs[j][i] != strs[j-1][i]) {
+						return res;
 					}
 				}
 			}
