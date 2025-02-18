@@ -4,7 +4,13 @@ import unittest
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         if (len(strs) > 1):
-            pass
+            my_dict = {}
+            for x in strs:
+                sorted_string = ''.join(sorted(x))
+                if sorted_string in my_dict:
+                    my_dict[sorted_string] += my_dict[sorted_string]
+                else:
+                    my_dict[sorted_string] = 1
 
         return strs
 
