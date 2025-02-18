@@ -1,18 +1,20 @@
 from typing import List
 import unittest
+from collections import defaultdict
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        if (len(strs) > 1):
-            my_dict = {}
-            for x in strs:
-                sorted_string = ''.join(sorted(x))
-                if sorted_string in my_dict:
-                    my_dict[sorted_string] += my_dict[sorted_string]
-                else:
-                    my_dict[sorted_string] = 1
+        my_dict = defaultdict(list)
+        for index, x in enumerate(strs):
+            sorted_string = ''.join(sorted(x))
+            my_dict[sorted_string].append(index)
 
-        return strs
+        anagram_list = []
+        for key, value in my_dict.items():
+            group = [strs[x] for x in value]
+            anagram_list.append(group)
+
+        return anagram_list
 
 
 class TestGroupAnagrams(unittest.TestCase):
