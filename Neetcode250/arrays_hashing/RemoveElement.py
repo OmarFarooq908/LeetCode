@@ -1,12 +1,21 @@
 import unittest
 from typing import List
+
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        nums.remove(val)
         k = len(nums)
-        
+        for index,value in enumerate(nums):
+            if value == val:
+                last_index = -1
+                while value == nums[last_index]:
+                    last_index = last_index - 1
+                    if last_index == -len(nums):
+                        break
+                temp = nums[last_index]
+                nums[last_index] = value
+                nums[index] = temp
+                k = k - 1
         return k
-
 
 class TestRemoveElement(unittest.TestCase):
     def setUp(self):
