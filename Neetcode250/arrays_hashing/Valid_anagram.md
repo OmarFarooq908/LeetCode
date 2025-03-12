@@ -136,3 +136,71 @@ The output will be:
 ```
 The strings are anagrams.
 ```
+
+
+
+
+
+
+
+
+
+
+
+----
+Python
+----
+
+Below is an optimized version that uses a single dictionary by iterating over both strings in one pass:
+
+```python
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        
+        count = {}
+        # Iterate over both strings at once
+        for ch1, ch2 in zip(s, t):
+            count[ch1] = count.get(ch1, 0) + 1
+            count[ch2] = count.get(ch2, 0) - 1
+        
+        # If all counts are zero, then s and t are anagrams
+        return all(val == 0 for val in count.values())
+```
+
+Alternatively, you could also use Python’s built-in `Counter` for a very concise solution:
+
+```python
+from collections import Counter
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return Counter(s) == Counter(t)
+```
+
+---
+
+### Strengths and Weaknesses of the Original Code
+
+**Strengths:**
+- **Clarity:** The original code is straightforward, as it clearly builds two dictionaries to count frequencies.
+- **Correctness:** It correctly compares the frequency counts to determine if the strings are anagrams.
+- **Simplicity:** The use of built-in dictionary methods keeps the implementation simple.
+
+**Weaknesses:**
+- **Multiple Passes:** The original solution iterates over the strings twice (once for each dictionary) and then over one dictionary again for comparison, which can be streamlined.
+- **Redundant Data Structures:** Maintaining two separate dictionaries increases the space usage, even though it’s still O(n).
+- **Performance:** While the overall time complexity remains O(n), the constant factors are slightly higher due to extra loops and dictionary operations.
+
+---
+
+### Complexity Analysis
+
+- **Time Complexity:** O(n)  
+  The algorithm iterates over the strings (or zipped strings) a constant number of times (linear passes), so the time complexity is linear with respect to the length of the strings.
+
+- **Space Complexity:** O(n)  
+  In the worst-case scenario (when all characters are unique), the dictionaries will hold n keys, leading to linear space usage.
+
+The optimized version reduces the number of passes and eliminates the need for two separate dictionaries, which improves efficiency in terms of constant factors while maintaining the overall O(n) time and space complexity.
