@@ -5,9 +5,6 @@ class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         res = ""
         min_length = len(min(strs))
-        dictionary = {index: value for index, value in enumerate(strs)}
-        # Min element
-        # Dictionary
         for i in range(min_length):
             temp = ""
             for index, word in enumerate(strs):
