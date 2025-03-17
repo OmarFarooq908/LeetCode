@@ -4,18 +4,16 @@ from collections import defaultdict
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        my_dict = defaultdict(list)
-        for index, x in enumerate(strs):
-            sorted_string = ''.join(sorted(x))
-            my_dict[sorted_string].append(index)
+        anagrams = defaultdict(list)
+        for s in strs:
+            # Creating count for 26 characters
+            count = [0] * 26
+            for char in s:
+                count[ord(char) - ord('a')] += 1
+            # Use the tuple of counts as the key
+            anagrams[tuple(count)].append(s)
 
-        anagram_list = []
-        for key, value in my_dict.items():
-            group = [strs[x] for x in value]
-            anagram_list.append(group)
-
-        return anagram_list
-
+        return list(anagrams.values())
 
 class TestGroupAnagrams(unittest.TestCase):
     def setUp(self):
